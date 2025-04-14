@@ -1,12 +1,12 @@
 import hashlib
 import getpass
 
-class InfoManager:
+class InfoManager:           #Commit 1: updated method and variable naming to reflect personal information instead of just passwords.
     def __init__(self):
         self.user_credentials = {}
         self.personal_info = {}
 
-    def register_user(self, username, password):
+    def register_user(self, username, password):    #Commit 6: Added a register_user method for new user creation and credential storage.
         if username not in self.user_credentials:
             hashed_password = self._hash_password(password)
             self.user_credentials[username] = hashed_password
@@ -45,21 +45,21 @@ class InfoManager:
             print("User session not found. Please login.")
 
     def _hash_password(self, password):
-        return hashlib.sha256(password.encode()).hexdigest()
+        return hashlib.sha256(password.encode()).hexdigest()    #Commit 4: Added a secure password hashing using SHA-256 for safer credential storage.
 
-def run_info_manager():
+def run_info_manager():            #Commit 2: Added persistent login state with current_user variable and conditional control flow for login/logout states.
     manager = InfoManager()
     current_user = None
 
     while True:
         if current_user:
-            print(f"\n Logged in as: {current_user}")
+            print(f"\n Logged in as: {current_user}")        #Commit 3: Improved UT: clarified prompt messages and formatted menu structure for better readability.
             print("1. Store new personal information")
             print("2. View stored information")
             print("3. Logout")
             choice = input("Enter your choice: ")
 
-            if choice == "1":
+            if choice == "1":        #Commit 5: Masked input for personal information entry using getpass to make for better privacy during data entry. 
                 info_type = input("Enter the type of information (e.g. SSN, ID, Bank Info): ")
                 info_data = getpass.getpass("Enter the information to store (input hidden): ")
                 manager.store_info(current_user, info_type, info_data)
@@ -71,7 +71,7 @@ def run_info_manager():
             else:
                 print("Invalid option. Please select 1, 2, or 3.")
         else:
-            print("\nPersonal Info Vault Menu")
+            print("\nPersonal Info Vault Menu")        #Commit 3: Improved UT: clarified prompt messages and formatted menu structure for better readability.
             print("1. Register")
             print("2. Login")
             print("3. Exit")
